@@ -35,7 +35,7 @@ class SQL implements BookInterface {
     return bookList;
   }
 
-  Future<List<Book>> getBookByGenre(String genre) async {
+  Future<List<Book>> getBookByGenre({String genre}) async {
     List<Book> bookList = [];
 
     var settings = new ConnectionSettings(

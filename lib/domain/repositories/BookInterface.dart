@@ -7,7 +7,7 @@ abstract class BookInterface {
 
   Future<List<Book>> getBookSaved(String idUser);
 
-  Future<List<Book>> getBookByGenre(String genre);
+  Future<List<Book>> getBookByGenre({String genre});
 
   Future<List<Book>> getAllBook();
 }

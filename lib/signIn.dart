@@ -1,8 +1,8 @@
 import 'package:book_time/Factory/FactoryBook.dart';
-import 'file:///C:/Users/doria/Desktop/book_time/lib/domain/repositories/BookInterface.dart';
-import 'package:book_time/Objet/User.dart';
+import 'package:book_time/domain/repositories/BookInterface.dart';
+import 'package:book_time/domain/entity/Book.dart';
+import 'package:book_time/domain/entity/User.dart';
 import 'package:flutter/material.dart';
-import 'booktime.dart';
 import 'login.dart';
 
 class SignIn extends StatelessWidget {
@@ -11,7 +11,7 @@ class SignIn extends StatelessWidget {
   User newUser = new User();
 
 
-  BookInterface adapterSource =  (FactoryAll(1)).adapterSource;
+  BookInterface bookSource =  (FactoryAll(1)).bookSource;
 
 
   @override
@@ -224,7 +224,7 @@ class SignIn extends StatelessWidget {
 
   void _handleSumitted(User content) async {
 
-    await adapterSource.addUser(content);
+    await bookSource.addUser(content);
   }
 
 

@@ -1,8 +1,8 @@
-import 'file:///C:/Users/doria/Desktop/book_time/lib/domain/repositories/BookInterface.dart';
-import 'file:///C:/Users/doria/Desktop/book_time/lib/domain/entity/Book.dart';
-import 'package:book_time/Objet/User.dart';
-import 'package:book_time/booktime.dart';
+import 'package:book_time/app/homePage/homePage_view.dart';
 import 'package:book_time/oneBook.dart';
+import 'package:book_time/domain/repositories/BookInterface.dart';
+import 'package:book_time/domain/entity/Book.dart';
+import 'package:book_time/domain/entity/User.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
@@ -14,7 +14,7 @@ class ProfilePage extends StatelessWidget {
 
   ProfilePage({this.currentUser});
 
-  BookInterface adapterSource =  (FactoryAll(1)).adapterSource;
+  BookInterface bookSource =  (FactoryAll(1)).bookSource;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class ProfilePage extends StatelessWidget {
                 width: 300,
                 child: Container(
                     child:  FutureBuilder<List<Book>>(
-                      future: adapterSource.getBookSaved(currentUser.idUser),
+                      future: bookSource.getBookSaved(currentUser.idUser),
                       builder: (context, snapshot){
                         if(snapshot.connectionState == ConnectionState.done){
                           List<Book> book = snapshot.data;
