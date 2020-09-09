@@ -1,7 +1,8 @@
 import 'package:book_time/Factory/FactoryBook.dart';
-import 'file:///C:/Users/doria/Desktop/book_time/lib/domain/repositories/BookInterface.dart';
-import 'package:book_time/Objet/User.dart';
-import 'package:book_time/booktime.dart';
+import 'package:book_time/app/homePage/homePage_view.dart';
+import 'package:book_time/domain/repositories/BookInterface.dart';
+import 'package:book_time/domain/entity/Book.dart';
+import 'package:book_time/domain/entity/User.dart';
 import 'package:book_time/profilePage.dart';
 import 'package:book_time/signIn.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class _LoginControlsState extends State<_LoginState> {
   User currentUser = new User();
 
 
-  BookInterface adapterSource =  (FactoryAll(1)).adapterSource;
+  BookInterface bookSource =  (FactoryAll(1)).bookSource;
 
 
   @override
@@ -269,12 +270,10 @@ class _LoginControlsState extends State<_LoginState> {
 
     if(query.email == content.email && query.pass == content.pass){
       Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-        return ProfilePage(currentUser: query);
+        return HomePage(currentUser: query);
       }));
     }else {
-      Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-        return HomePage();
-      }));
+
     }
 
   }

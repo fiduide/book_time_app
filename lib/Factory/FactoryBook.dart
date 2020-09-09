@@ -1,14 +1,13 @@
-import 'file:///C:/Users/doria/Desktop/book_time/lib/domain/repositories/BookInterface.dart';
-import 'file:///C:/Users/doria/Desktop/book_time/lib/data/repositories/SQL.dart';
-
+import 'package:book_time/data/repositories/SQL.dart';
+import 'package:book_time/domain/repositories/BookInterface.dart';
 
 class FactoryAll{
 
-  BookInterface adapterSource;
+  BookInterface bookSource;
 
-  FactoryAll(int sourcetype) {
-    if (sourcetype == 1) {
-      this.adapterSource = new SQL();
+  FactoryAll(int sourceType) {
+    if (sourceType == 1) {
+      this.bookSource = new SQL();
     }
   }
 }
