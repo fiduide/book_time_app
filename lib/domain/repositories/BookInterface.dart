@@ -1,5 +1,7 @@
 import 'package:book_time/domain/entity/Book.dart';
 import 'package:book_time/domain/entity/User.dart';
+import 'package:flutter/material.dart';
+import 'package:book_time/domain/entity/googleApiBook.dart';
 
 abstract class BookInterface {
 
@@ -10,4 +12,6 @@ abstract class BookInterface {
   Future<List<Book>> getBookByGenre({String genre});
 
   Future<List<Book>> getAllBook();
+
+  Future<VolumeJson> getBookWithSearch({String search});
 }

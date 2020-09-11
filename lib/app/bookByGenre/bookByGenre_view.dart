@@ -1,6 +1,7 @@
 import 'package:book_time/Factory/FactoryBook.dart';
 import 'package:book_time/app/homePage/homePage_controller.dart';
 import 'package:book_time/app/homePage/homePage_view.dart';
+import 'package:book_time/app/searchPage/searchPage_view.dart';
 import 'package:book_time/domain/entity/Book.dart';
 import 'package:book_time/profilePage.dart';
 import 'package:flutter/material.dart';
@@ -186,7 +187,7 @@ class BookByGenreState extends ViewState<BookByGenre, ByGenreBookController> {
                 break;
               case 2:
                 Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-                  //return searchBook();
+                  return searchPage();
                 }));
                 break;
               case 3:
@@ -224,6 +225,7 @@ class BookByGenreState extends ViewState<BookByGenre, ByGenreBookController> {
                             child: Container(
                               child: ListTile(
                                 title:  Image.asset("assets/images/book/"+byGenreBook[index].isbn+".png", height: 200,),
+                                subtitle: Text(byGenreBook[index].title),
                               ),
                             )
                         );

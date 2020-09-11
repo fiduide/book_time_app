@@ -1,6 +1,7 @@
 import 'package:book_time/Factory/FactoryBook.dart';
 import 'package:book_time/app/bookByGenre/bookByGenre_view.dart';
 import 'package:book_time/app/homePage/homePage_controller.dart';
+import 'package:book_time/app/searchPage/searchPage_view.dart';
 import 'package:book_time/domain/entity/Book.dart';
 import 'package:book_time/domain/entity/User.dart';
 import 'package:flutter/material.dart';
@@ -86,8 +87,8 @@ class HomePageState extends ViewState<HomePage, HomePageController> {
               backgroundColor: Colors.black26,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.perm_identity),
-              title: Text(''),
+              icon: Icon(Icons.person),
+              title: Text('Profile'),
               backgroundColor: Colors.black26,
             )
           ],
@@ -105,7 +106,7 @@ class HomePageState extends ViewState<HomePage, HomePageController> {
               break;
             case 2:
               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
-                //return searchBook();
+                return searchPage();
               }));
               break;
             case 3:

@@ -42,7 +42,6 @@ class _GetAllBookObserver extends Observer<GetAllBookUseCaseResponse> {
     presenter.getAllBookOnNext(response.book);
   }
 
-  @override
   void onWaiting(){
     assert(presenter.getAllBookOnComplete == null);
     presenter.getAllBookOnWaiting();
