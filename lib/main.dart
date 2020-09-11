@@ -1,3 +1,4 @@
+import 'package:book_time/app/searchPage/searchPage_view.dart';
 import 'package:flutter/material.dart';
 import 'app/homePage/homePage_view.dart';
 import 'login.dart';
@@ -11,7 +12,7 @@ class BookTime extends StatelessWidget {
     return new MaterialApp(
       title: 'Book Time',
       theme: ThemeData.dark(),
-      home: LoginPage(),
+      home: searchPage(),
       debugShowCheckedModeBanner: true,
     );
   }

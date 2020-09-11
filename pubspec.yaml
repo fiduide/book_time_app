@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter_clean_architecture: ^3.0.2
   mysql1: ^0.17.1
+  toast: ^0.1.5
+  http: ^0.12.2
   rxdart:
   flutter:
     sdk: flutter

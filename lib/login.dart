@@ -5,8 +5,10 @@ import 'package:book_time/domain/entity/Book.dart';
 import 'package:book_time/domain/entity/User.dart';
 import 'package:book_time/profilePage.dart';
 import 'package:book_time/signIn.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
+import 'package:toast/toast.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -35,210 +37,201 @@ class _LoginControlsState extends State<_LoginState> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        child: SingleChildScrollView(
+      body:  SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 400.0,
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/backSignIn.png'),
-                          fit: BoxFit.fill
-                      )
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color.fromARGB(255,199,199,199),
+                            blurRadius: 150.0,
+                            offset: Offset(0,5)
+                        )
+                      ]
                   ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                          child: Container(
-                            margin: EdgeInsets.only(top: 100),
-                            child: Center(
-                              child: Text("Connexion", style: TextStyle(fontFamily: 'Fredock', fontSize: 40, fontWeight: FontWeight.bold),),
-                            ),
-                          )
-                      ),
-                    ],
-                  ),
+                  margin: EdgeInsets.only(top: 75),
+                  child: Text('BookTime', style: TextStyle(color: Colors.grey[200], fontFamily: 'Fredock', fontSize: 35),),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(40.0),
-                  child: Column(
-                      children: [
-                        Form(
+                  padding: EdgeInsets.only(top: 150.0),
+                  child: Form(
+                      child: Column(
+                        children: [
+                          Text('Connexion', style: TextStyle(color: Colors.white, fontFamily: 'Fredock', fontSize: 25),),
+                          Container(
+                            margin: EdgeInsets.all(30.0),
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color:  Colors.grey,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color.fromARGB(255,199,199,199),
+                                  )
+                                ]
+                            ),
                             child: Column(
                               children: [
                                 Container(
-                                  padding: EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color:  Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Color.fromARGB(255,199,199,199),
-                                            blurRadius: 10.0,
-                                            offset: Offset(0,5)
-                                        )
-                                      ]
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                          padding: EdgeInsets.all(8.0),
-                                          decoration: BoxDecoration(
-                                              border: Border(bottom:BorderSide(color: Colors.grey[100]))
+                                    padding: EdgeInsets.all(8.0),
+                                    decoration: BoxDecoration(
+                                        border: Border(bottom:BorderSide(color: Colors.grey))
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        TextField(
+                                          onChanged: (String email){
+                                            currentUser.email = email;
+                                          },
+                                          onSubmitted: (String email){
+                                            if(email.isNotEmpty){
+                                              currentUser.email = email;
+                                            }else(
+                                              Text('wrong email')
+                                            );
+                                          },
+                                          style: TextStyle(color: Colors.black38),
+                                          decoration: InputDecoration(
+                                              hintText: 'Email',
+                                              hintStyle: TextStyle(color:  Color.fromARGB(255,199,199,199))
                                           ),
-
-                                          child: Column(
-                                            children: [
-                                              TextField(
-                                                onChanged: (String email){
-                                                  currentUser.email = email;
-                                                },
-                                                onSubmitted: (String email){
-                                                  if(currentUser.email != ""){
-                                                    currentUser.email = email;
-                                                  }
-                                                },
-                                                style: TextStyle(color: Colors.black38),
-                                                decoration: InputDecoration(
-                                                    hintText: 'Email',
-                                                    hintStyle: TextStyle(color:  Color.fromARGB(255,199,199,199))
-                                                ),
-                                              )
-
-                                            ],
-                                          )
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  padding: EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color:  Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Color.fromARGB(255,199,199,199),
-                                            blurRadius: 5.0,
-                                            offset: Offset(0,5)
                                         )
-                                      ]
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                          padding: EdgeInsets.all(8.0),
-                                          decoration: BoxDecoration(
-                                              border: Border(bottom:BorderSide(color: Colors.grey[100]))
-                                          ),
 
-                                          child: Column(
-                                            children: [
-                                              TextField(
-                                                onChanged: (String pass){
-                                                  currentUser.pass = pass;
-                                                },
-                                                onSubmitted: (String pass){
-                                                  if(currentUser.pass != "" && currentUser.pass.length > 6){
-                                                    currentUser.pass = pass;
-                                                  }
-                                                },
-                                                style: TextStyle(color: Colors.black38),
-                                                decoration: InputDecoration(
-                                                    border: InputBorder.none,
-                                                    hintText: 'Mot de passe',
-                                                    focusColor: Colors.grey,
-                                                    hintStyle: TextStyle(color:  Color.fromARGB(255,199,199,199))
-                                                ),
-                                              )
-
-                                            ],
-                                          )
-                                      )
-                                    ],
-                                  ),
-                                ),
+                                      ],
+                                    )
+                                )
                               ],
-                            )
-                        ),
-                        SizedBox(height: 30.0,),
-                        Center(
-                            child: FlatButton(
-                              onPressed: () async {
-                                if(currentUser.email != null && currentUser.pass != null){
-                                  _handleSumitted(currentUser);
-                                }else{
-                                  //TODO
-                                }
-                              },
-                              padding: const EdgeInsets.all(0.0),
-                              textColor: Colors.white,
-                              child: Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  height: 50,
-                                  width: 200,
-                                  decoration:  BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      gradient: LinearGradient(
-                                          colors: [
-                                            Color.fromARGB(255,142,143, 147),
-                                            Color.fromARGB(255,174,176, 180),
-                                            Color.fromARGB(255,206,208, 209)
-                                          ]
-                                      )
-                                  ),
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Center(
-                                    child: const Text(
-                                        "Se connecter",
-                                        style: TextStyle(fontSize: 20, fontFamily: "Fredock")
-                                    ),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 10, left: 30, right: 30),
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color:  Colors.grey,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color.fromARGB(255,199,199,199),
                                   )
-                              ),
-                            )
-                        ),
-                        Center(
-                            child: FlatButton(
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>SignIn()));
-                              },
-                              padding: const EdgeInsets.all(0.0),
-                              textColor: Colors.white,
-                              child: Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  height: 50,
-                                  width: 200,
-                                  decoration:  BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      gradient: LinearGradient(
-                                          colors: [
-                                            Color.fromARGB(255,142,143, 147),
-                                            Color.fromARGB(255,174,176, 180),
-                                            Color.fromARGB(255,206,208, 209)
-                                          ]
-                                      )
-                                  ),
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Center(
-                                    child: const Text(
-                                        "S'inscrire",
-                                        style: TextStyle(fontSize: 20, fontFamily: "Fredock")
+                                ]
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    decoration: BoxDecoration(
+                                        border: Border(bottom:BorderSide(color: Colors.grey[400]))
                                     ),
-                                  )
-                              ),
-                            )
-                        )]
+                                    child: Column(
+                                      children: [
+                                        TextField(
+                                          onChanged: (String pass){
+                                            currentUser.pass = pass;
+                                          },
+                                          onSubmitted: (String pass){
+                                            if(pass != "" && pass.length > 6){
+                                              currentUser.pass = pass;
+                                            }
+                                          },
+                                          style: TextStyle(color: Colors.black38),
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: 'Mot de passe',
+                                              focusColor: Colors.grey,
+                                              hintStyle: TextStyle(color:  Color.fromARGB(255,199,199,199))
+                                          ),
+                                        )
+
+                                      ],
+                                    )
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
                   ),
-                )
-              ],
+                ),
+                SizedBox(height: 30.0,),
+                Center(
+                    child: FlatButton(
+                      onPressed: () async {
+                        if(currentUser.email != null && currentUser.pass != null){
+                          _handleSumitted(currentUser);
+                        }else{
+                          //TODO
+                        }
+                      },
+                      padding: const EdgeInsets.all(0.0),
+                      textColor: Colors.white,
+                      child: Container(
+                          margin: EdgeInsets.only(top: 10),
+                          height: 50,
+                          width: 200,
+                          decoration:  BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromARGB(255,142,143, 147),
+                                    Color.fromARGB(255,174,176, 180),
+                                    Color.fromARGB(255,206,208, 209)
+                                  ]
+                              )
+                          ),
+                          padding: const EdgeInsets.all(10.0),
+                          child: Center(
+                            child: const Text(
+                                "Se connecter",
+                                style: TextStyle(fontSize: 20, fontFamily: "Fredock")
+                            ),
+                          )
+                      ),
+                    )
+                ),
+                Center(
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SignIn()));
+                      },
+                      padding: const EdgeInsets.all(0.0),
+                      textColor: Colors.white,
+                      child: Container(
+                          margin: EdgeInsets.only(top: 10),
+                          height: 50,
+                          width: 200,
+                          decoration:  BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromARGB(255,142,143, 147),
+                                    Color.fromARGB(255,174,176, 180),
+                                    Color.fromARGB(255,206,208, 209)
+                                  ]
+                              )
+                          ),
+                          padding: const EdgeInsets.all(10.0),
+                          child: Center(
+                            child: const Text(
+                                "S'inscrire",
+                                style: TextStyle(fontSize: 20, fontFamily: "Fredock")
+                            ),
+                          )
+                      ),
+                    )
+                )]
             )
-        ),
-      ),
+      )
     );
+
   }
+
+  void showToast(String msg, BuildContext context, {int duration, int gravity, Color color}) {
+    Toast.show(msg, context, duration: duration, gravity: gravity, backgroundColor: color);
+  }
+
 
   void _handleSumitted(User content) async {
 
@@ -273,7 +266,9 @@ class _LoginControlsState extends State<_LoginState> {
         return HomePage(currentUser: query);
       }));
     }else {
-
+      showToast("Vos informations sont incorrecte", context, gravity: Toast.CENTER,
+          duration: Toast.LENGTH_LONG,
+          color: Colors.red[900]);
     }
 
   }
